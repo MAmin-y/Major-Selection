@@ -1,0 +1,180 @@
+@page "{id:Guid}"
+@model MajorSelection.Pages.Admin.Users.EditModel
+@{
+}
+
+
+<div class="container mx-auto">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-6">
+
+            <h1 class="mt-5 mb-3 h3">Edit</h1>
+
+            <partial name="_Notification">
+
+                <form method="post">
+
+                    <div class="mb-3">
+                        <label class="form-label">Id</label>
+                        <input type="text" class="form-control" asp-for="editUserRequest.Id" required readonly />
+                        <span class="text-danger" asp-validation-for="editUserRequest.Id"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-control" asp-for="editUserRequest.Username" required />
+                        <span class="text-danger" asp-validation-for="editUserRequest.Username"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" asp-for="editUserRequest.Email" required/>
+                        <span class="text-danger" asp-validation-for="editUserRequest.Email"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">FullName</label>
+                        <input type="text" class="form-control" asp-for="editUserRequest.FullName" required />
+                        <span class="text-danger" asp-validation-for="editUserRequest.FullName"></span>
+                    </div>
+
+
+                    <div class="form-outline mb-3" style="width: 100%; max-width: 22rem">
+                      <label class="form-label" for="MobilePhone">Phone number with country code</label>
+                      <input type="text" id="MobilePhone" class="form-control" data-mdb-input-mask="+98 9120000000" asp-for="editUserRequest.MobilePhone" required/>
+                      <span class="text-danger" asp-validation-for="editUserRequest.MobilePhone"></span>
+                    </div>
+
+                    
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="UserSex">Sex</label>
+                        </div>
+                        <select class="custom-select" id="UserSex" asp-for="editUserRequest.Sex" required>
+                            @{
+                                int i = 0;
+                                foreach (var sex in Enum.GetValues(typeof(MajorSelection.Enums.UserSex)))
+                                {
+                                    <option value="@i">@sex</option>
+                                    i++;
+                                }
+                            }
+                        </select>
+                        <span class="text-danger" asp-validation-for="editUserRequest.Sex"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="RankInTotal" class="form-label">Rank In Total</label>
+                        <input type="number" min="1"  class="form-control" id="RankInTotal" asp-for="editUserRequest.RankInTotal" required>
+                        <span class="text-danger" asp-validation-for="editUserRequest.RankInTotal"></span>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="Region">Region</label>
+                        </div>
+                        <select class="custom-select" id="Region" asp-for="editUserRequest.Region" required>
+                            @{
+                                int j = 0;
+                                foreach (var region in Enum.GetValues(typeof(MajorSelection.Enums.Regions)))
+                                {
+                                    <option value="@j">@region</option>
+                                    j++;
+                                }
+                            }
+                        </select>
+                        <span class="text-danger" asp-validation-for="editUserRequest.Region"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="RankInRegion" class="form-label">Rank In Region</label>
+                        <input type="number" min="1" class="form-control" id="RankInRegion" asp-for="editUserRequest.RankInRegion" required>
+                        <span class="text-danger" asp-validation-for="editUserRequest.RankInRegion"></span>
+                    </div>
+
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="ScholarShip">ScholarShip</label>
+                        </div>
+                        <select class="custom-select" id="ScholarShip" asp-for="editUserRequest.ScholarShip">
+                            @{
+                                int k = 0;
+                                foreach (var scholarShip in Enum.GetValues(typeof(MajorSelection.Enums.ScholarShips)))
+                                {
+                                    <option value="@k">@scholarShip</option>
+                                    k++;
+                                }
+                            }
+                        </select>
+                        <span class="text-danger" asp-validation-for="editUserRequest.ScholarShip"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="RankInScholarShip" class="form-label">Rank In ScholarShip</label>
+                        <input type="number" value="0" min="0" class="form-control" id="RankInScholarShip" asp-for="editUserRequest.RankInScholarShip">
+                        <span class="text-danger" asp-validation-for="editUserRequest.RankInScholarShip"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="ReportImageUpload" class="form-label">Report Image Upload</label>
+                        <input type="file" id="ReportImageUpload" />
+                        @if (Model.editUserRequest.ReportImageUrl != null)
+                        {
+                            <img src="@Model.editUserRequest.ReportImageUrl" id="featuredImageDisplay" style="width:300px;" />
+                        }
+                        else
+                        {
+                            <img src="" id="featuredImageDisplay" style="display:none; width:300px;" />
+                        }
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" hidden class="form-control" id="ReportImageUrl"
+                            asp-for="editUserRequest.ReportImageUrl">
+                        <span class="text-danger" asp-validation-for="editUserRequest.ReportImageUrl"></span>
+                    </div>
+
+
+
+                    <div class="mb-3 d-flex justify-content-between">
+                        <button class="btn btn-primary" type="submit" asp-page-handler="Edit">Submit</button>
+                        <button class="btn btn-danger" type="submit" asp-page-handler="Delete">Delete</button>
+                    </div>
+
+                </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+
+        const reportImageUploadElement = document.getElementById('ReportImageUpload');
+        const reportImageUrl = document.getElementById('ReportImageUrl');
+        const reportImageDisplay = document.getElementById('ReportImageDisplay');
+        
+        async function uploadReportImage(e) {
+
+            let data = new FormData();
+            data.append('file', e.target.files[0]);
+
+            await fetch('/api/images', {
+                method: 'POST',
+                headers: {
+                    'Accept': '/',
+                },
+                body: data
+            })
+            .then(response => response.json())
+                .then(result => {
+                    reportImageUrl.value = result.link;
+                    reportImageDisplay.style.display = 'block';
+                    reportImageDisplay.src = result.link;
+                });
+        }
+
+        reportImageUploadElement.addEventListener('change', uploadReportImage);
+    </script>
+}

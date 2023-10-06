@@ -1,0 +1,14 @@
+@page "{PriorityNumber:int}/{MajorId:Guid}/{userId:Guid}"
+@model MajorSelection.Pages.Users.SelectMajor
+@{
+}
+
+@section Scripts
+{
+    <script>
+        function myFunction() {
+            location.replace("/Users/ChooseMajor/@Model.UserId")
+        }
+        myFunction();
+    </script>
+}

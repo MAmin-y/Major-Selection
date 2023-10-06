@@ -1,0 +1,48 @@
+@page
+@model MajorSelection.Pages.Admin.Users.ListModel
+@{
+}
+
+<div class="bg-secondary bg-opacity-10 py-2 mb-5">
+    <div class="container">
+        <h1>Users</h1>
+    </div>
+</div>
+
+<partial name="_Notification">
+
+    <div class="text-center">
+        <a class="btn btn-primary" href="/Register" role="button">Add User</a>
+    </div>
+
+    @if (Model.users != null && Model.users.Any())
+    {
+        <div class="container">
+            @foreach (var user in Model.users)
+            {
+                <div class="card text-black bg-light mb-3" style="max-width: 18rem;">
+                    <div class="card-header">@user.Username</div>
+                    <div class="card-body">
+                        <h5 class="card-title">@user.FullName</h5>
+                        <p class="card-text">Phone : @user.MobilePhone<br>
+                            Rank In Total : @user.RankInTotal<br>
+                            Region : @Enum.GetName(user.Region) <br>
+                            Rank In Region : @user.RankInRegion <br>
+                        </p>
+                        <small class="text-muted blackqoute-footer">
+                            Gender : <cite title="Source Title">@Enum.GetName(user.Sex)
+                            </cite>
+                        </small>
+                        <a href="/Admin/Users/Edit/@user.Id" class="text-center" class="card-link pl-10">View</a>
+                        <a href="/Users/ChooseMajor/@user.Id" class="text-center" class="card-link pl-10">Edit Majors</a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="container">
+            <p>No Users were found!</p>
+        </div>
+    }

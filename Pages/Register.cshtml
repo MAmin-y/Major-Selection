@@ -1,0 +1,219 @@
+﻿@page
+@model MajorSelection.Pages.RegisterModel
+@{
+}
+
+
+<div class="container mx-auto">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-6">
+
+            <h1 class="mt-5 mb-3 h3">Register</h1>
+
+            <partial name="_Notification">
+
+                <form method="post">
+
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-control" asp-for="RegisterViewModel.Username" required />
+                        <span class="text-danger" asp-validation-for="RegisterViewModel.Username"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" asp-for="RegisterViewModel.Email" required/>
+                        <span class="text-danger" asp-validation-for="RegisterViewModel.Email"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" asp-for="RegisterViewModel.Password" required minlength="6"/>
+                        <span class="text-danger" asp-validation-for="RegisterViewModel.Password"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">FullName</label>
+                        <input type="text" class="form-control" asp-for="RegisterViewModel.FullName" required />
+                        <span class="text-danger" asp-validation-for="RegisterViewModel.FullName"></span>
+                    </div>
+
+
+                    <div class="form-outline mb-3" style="width: 100%; max-width: 22rem">
+                      <label class="form-label" for="MobilePhone">Phone number with country code</label>
+                      <input type="text" id="MobilePhone" class="form-control" data-mdb-input-mask="+98 9120000000" asp-for="RegisterViewModel.MobilePhone" required/>
+                      <span class="text-danger" asp-validation-for="RegisterViewModel.MobilePhone"></span>
+                    </div>
+
+                    
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="UserSex">Sex</label>
+                        </div>
+                        <select class="custom-select" id="UserSex" asp-for="RegisterViewModel.Sex" required>
+                            @{
+                                int i = 0;
+                                foreach (var sex in Enum.GetValues(typeof(MajorSelection.Enums.UserSex)))
+                                {
+                                    <option value="@i">@sex</option>
+                                    i++;
+                                }
+                            }
+                        </select>
+                        <span class="text-danger" asp-validation-for="RegisterViewModel.Sex"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="RankInTotal" class="form-label">Rank In Total</label>
+                        <input type="number" min="1"  class="form-control" id="RankInTotal" asp-for="RegisterViewModel.RankInTotal" required>
+                        <span class="text-danger" asp-validation-for="RegisterViewModel.RankInTotal"></span>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="Region">Region</label>
+                        </div>
+                        <select class="custom-select" id="Region" asp-for="RegisterViewModel.Region" required>
+                            @{
+                                int j = 0;
+                                foreach (var region in Enum.GetValues(typeof(MajorSelection.Enums.Regions)))
+                                {
+                                    <option value="@j">@region</option>
+                                    j++;
+                                }
+                            }
+                        </select>
+                        <span class="text-danger" asp-validation-for="RegisterViewModel.Region"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="RankInRegion" class="form-label">Rank In Region</label>
+                        <input type="number" min="1" class="form-control" id="RankInRegion" asp-for="RegisterViewModel.RankInRegion" required>
+                        <span class="text-danger" asp-validation-for="RegisterViewModel.RankInRegion"></span>
+                    </div>
+
+                    <div class="form-check form-switch mb-3">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Have Scholarship</label>
+                        <input class="form-check-input" value="yse" type="checkbox" id="flexSwitchCheckDefault" checked>
+                    </div>
+
+
+                    <div class="input-group mb-3" id="ScholarShip" >
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="ScholarShip">ScholarShip</label>
+                        </div>
+                        <select class="custom-select" id="ScholarShip" asp-for="RegisterViewModel.ScholarShip">
+                            @{
+                                int k = 0;
+                                foreach (var scholarShip in Enum.GetValues(typeof(MajorSelection.Enums.ScholarShips)))
+                                {
+                                    <option value="@k">@scholarShip</option>
+                                    k++;
+                                }
+                            }
+                        </select>
+                        <span class="text-danger" asp-validation-for="RegisterViewModel.ScholarShip"></span>
+                    </div>
+
+                    <div class="mb-3" id="RankInScholarShip">
+                        <label for="RankInScholarShip" class="form-label">Rank In ScholarShip</label>
+                        <input type="number" min="0" value="0" class="form-control" id="RankInScholarShip" asp-for="RegisterViewModel.RankInScholarShip">
+                        <span class="text-danger" asp-validation-for="RegisterViewModel.RankInScholarShip"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="ReportImageUpload" class="form-label">Report Image Upload</label>
+                        <input type="file" id="ReportImageUpload" />
+                        <img src="" id="ReportImageDisplay" style="display:none; width:300px;" />
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" hidden class="form-control" id="ReportImageUrl"
+                            asp-for="RegisterViewModel.ReportImageUrl">
+                        <span class="text-danger" asp-validation-for="RegisterViewModel.ReportImageUrl"></span>
+                    </div>
+
+                    
+                    <div class="mb-3">
+                        @if (User.IsInRole("Admin"))
+                        {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox"
+                                   value="User" checked disabled>
+                            <label class="form-check-label" for="flexCheckDefault">
+                                User Role
+                            </label>
+                        </div>
+                        }
+
+                        @if (User.IsInRole("SuperAdmin"))
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"
+                                       asp-for="RegisterViewModel.AdminCheckbox">
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    Admin Role
+                                </label>
+                            </div>
+                        }
+                    </div>
+
+
+
+                    <div class="mb-3">
+                        <button type="submit" class="btn bg-dark text-light">Register</button>
+                    </div>
+
+                </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+
+        const reportImageUploadElement = document.getElementById('ReportImageUpload');
+        const reportImageUrl = document.getElementById('ReportImageUrl');
+        const reportImageDisplay = document.getElementById('ReportImageDisplay');
+
+        async function uploadReportImage(e) {
+
+            let data = new FormData();
+            data.append('file', e.target.files[0]);
+
+            await fetch('/api/images', {
+                method: 'POST',
+                headers: {
+                    'Accept': '/',
+                },
+                body: data
+            })
+            .then(response => response.json())
+                .then(result => {
+                    reportImageUrl.value = result.link;
+                    reportImageDisplay.style.display = 'block';
+                    reportImageDisplay.src = result.link;
+                });
+        }
+
+        reportImageUploadElement.addEventListener('change', uploadReportImage);
+
+        const checkField = document.getElementById("flexSwitchCheckDefault");
+        const scholarField = document.getElementById("ScholarShip");
+        const scholarRankField = document.getElementById("RankInScholarShip");
+
+        function switchVisibility(e) {
+            if (e.target.checked) {
+                scholarField.style.display = "flex"
+                scholarRankField.style.display = "block"
+            }
+            else {
+                scholarField.style.display = "none"
+                scholarRankField.style.display = "none"
+            }
+        }
+
+        checkField.addEventListener('change', switchVisibility)
+    </script>
+}

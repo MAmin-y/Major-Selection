@@ -1,0 +1,90 @@
+﻿@page 
+@model MajorSelection.Pages.Admin.Majors.AddModel
+@{
+}
+
+<div class="bg-secondary bg-opacity-10 py-2 mb-5">
+    <div class="container">
+        <h1>Add Major</h1>
+    </div>
+</div>
+
+<partial name="_Notification">
+    <div>
+        <div class="container">
+            <form method="post">
+
+                <div class="mb-3">
+                    <label for="serialNumber" class="form-label">Serial Number</label>
+                    <input type="number" class="form-control" id="serialNumber" asp-for="addMajorRequest.SerialNumber" required>
+                    <span class="text-danger" asp-validation-for="addMajorRequest.SerialNumber"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="Name" asp-for="addMajorRequest.Name" required>
+                    <span class="text-danger" asp-validation-for="addMajorRequest.Name"></span>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="UniversityName" class="form-label">University Name</label>
+                    <input type="text" class="form-control" id="UniversityName" asp-for="addMajorRequest.UniversityName" required>
+                    <span class="text-danger" asp-validation-for="addMajorRequest.UniversityName"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Capacity" class="form-label">Capacity</label>
+                    <input type="number" class="form-control" id="Capacity" asp-for="addMajorRequest.Capacity" required>
+                    <span class="text-danger" asp-validation-for="addMajorRequest.Capacity"></span>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Sex</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect01" asp-for="addMajorRequest.Sex" required>
+                        <option selected>Choose...</option>
+                        @{
+                            int i = 0;
+                            foreach (var sex in Enum.GetValues(typeof(MajorSelection.Enums.MajorSex)))
+                            {
+                                <option value="@i">@sex</option>
+                                i++;
+                            }
+                        }
+                    </select>
+                    <span class="text-danger" asp-validation-for="addMajorRequest.Sex"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="placeOfDuty" class="form-label">Place Of Duty</label>
+                    <input type="text" class="form-control" id="placeOfDuty" asp-for="addMajorRequest.PlaceOfDuty" required>
+                    <span class="text-danger" asp-validation-for="addMajorRequest.PlaceOfDuty"></span>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="status">Status</label>
+                    </div>
+                    <select class="custom-select" id="status" asp-for="addMajorRequest.Status" required>
+                        <option selected>Choose...</option>
+                        @{
+                            int j = 0;
+                            foreach (var status in Enum.GetValues(typeof(MajorSelection.Enums.MajorStatus)))
+                            {
+                                <option value="@j">@status</option>
+                                j++;
+                            }
+                        }
+                    </select>
+                    <span class="text-danger" asp-validation-for="addMajorRequest.Status"></span>
+                </div>
+
+                <div class="mb-3 d-flex justify-content-between">
+                    <button class="btn btn-primary" type="submit" asp-page-handler="Edit">Submit</button>
+                    <button class="btn btn-danger" type="submit" asp-page-handler="Delete">Delete</button>
+                </div>
+
+            </form>
+        </div>
+    </div>

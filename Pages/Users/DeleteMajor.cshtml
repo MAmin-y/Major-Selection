@@ -1,0 +1,14 @@
+@page "{majorId:Guid}/{userId:Guid}"
+@model MajorSelection.Pages.Users.DeleteMajor
+@{
+}
+
+@section Scripts
+{
+    <script>
+        function myFunction() {
+            location.replace("/Users/ChooseMajor/@Model.UserId")
+        }
+        myFunction();
+    </script>
+}
